@@ -4,29 +4,29 @@ import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.fragment.app.Fragment
 
 
 class WebFragment : Fragment(), IOnBackPressed {
-    val LINK_API = "https://www.icndb.com/api/"
-    lateinit var webView: WebView
+    private val LINK_API = "https://www.icndb.com/api/"
+    private lateinit var webView: WebView
     private var webViewBundle: Bundle? = null
-    var mInstance: WebFragment? = null
-
-
-    fun getInstance(): WebFragment? {
-        if (mInstance == null) {
-            mInstance = WebFragment()
-        }
-        return mInstance
-    }
-
+   companion object {
+       private var mInstance: WebFragment? = null
+       fun getInstance(): WebFragment? {
+           if (mInstance == null) {
+               mInstance = WebFragment()
+           }
+           return mInstance
+       }
+   }
+    
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
