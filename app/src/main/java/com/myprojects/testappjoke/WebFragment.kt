@@ -13,7 +13,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 
 
-class WebFragment : Fragment() {
+class WebFragment : Fragment(), IOnBackPressed {
     val LINK_API = "https://www.icndb.com/api/"
     lateinit var webView: WebView
     private var webViewBundle: Bundle? = null
@@ -65,7 +65,7 @@ class WebFragment : Fragment() {
     }
 
     // back button implementation
-    fun onBackPressed() {
+    override fun onBackPressed() {
         if (webView.canGoBack()) {
             webView.goBack()
         }
