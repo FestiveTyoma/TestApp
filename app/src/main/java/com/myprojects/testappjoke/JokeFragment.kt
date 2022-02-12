@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 
 
-class JokeFragment : Fragment() {
+class JokeFragment : Fragment(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
