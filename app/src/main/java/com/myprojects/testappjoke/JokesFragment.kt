@@ -21,20 +21,16 @@ import retrofit2.Response
 
 class JokesFragment : Fragment(), View.OnClickListener {
 
-   private lateinit var adapter: JokesRecyclerViewAdapter
+    private lateinit var adapter: JokesRecyclerViewAdapter
     private val JOKES_ARRAY_KEY = "1"
     private var numberOfJokes = 0
     private var editText: EditText? = null
-   private var recyclerView: RecyclerView? = null
-    var jokesArray: ArrayList<String>?=null
-    lateinit var joke:Joke
-
-
+    private var recyclerView: RecyclerView? = null
+    var jokesArray: ArrayList<String>? = null
+    lateinit var joke: Joke
 
     companion object {
-
-            var mInstance: JokesFragment? = null
-
+        var mInstance: JokesFragment? = null
         fun getInstance(): JokesFragment? {
             if (mInstance == null) {
                 mInstance = JokesFragment()
@@ -45,7 +41,7 @@ class JokesFragment : Fragment(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null && jokesArray!=null) {
             jokesArray = savedInstanceState.getStringArrayList(JOKES_ARRAY_KEY)!!
         }
     }
@@ -61,7 +57,7 @@ class JokesFragment : Fragment(), View.OnClickListener {
 
     override fun onStart() {
         super.onStart()
-        if (jokesArray!=null) {
+        if (jokesArray != null) {
             fillListWithJokes()
         }
     }
@@ -86,8 +82,8 @@ class JokesFragment : Fragment(), View.OnClickListener {
         //get Json data and set it in ArrayList
         NetWorkService.instance?.aPI?.getRandomJokesWithCount(numberOfJokes)?.enqueue(object : Callback<Joke?> {
             override fun onResponse(call: Call<Joke?>, response: Response<Joke?>) {
-                jokesArray=ArrayList()
-                joke=response.body()!!
+                jokesArray = ArrayList()
+                joke = response.body()!!
                 for (i in 0 until numberOfJokes) {
 
                     jokesArray!!.add(joke.value[i].joke)
@@ -96,8 +92,10 @@ class JokesFragment : Fragment(), View.OnClickListener {
             }
 
             override fun onFailure(call: Call<Joke?>, t: Throwable) {
-                Toast.makeText(activity, "Error occurred while getting request",
-                    Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    activity, "Error occurred while getting request",
+                    Toast.LENGTH_SHORT
+                ).show()
                 Log.e("Tag", "Вот эта коварная ошибка $t")
             }
         })
@@ -105,9 +103,9 @@ class JokesFragment : Fragment(), View.OnClickListener {
 
     //set data to listview using the adapter
     private fun fillListWithJokes() {
-        recyclerView?.layoutManager=LinearLayoutManager(activity)
+        recyclerView?.layoutManager = LinearLayoutManager(activity)
         adapter = JokesRecyclerViewAdapter(activity, jokesArray!!)
-        recyclerView?.adapter=adapter
+        recyclerView?.adapter = adapter
     }
 }
 

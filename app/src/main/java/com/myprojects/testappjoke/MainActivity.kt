@@ -12,7 +12,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        loadFragment(JokesFragment.getInstance())
+        if (WebFragment.getInstance() != getVisibleFragment()) {
+            loadFragment(JokesFragment.getInstance())
+        }
         val bar: NavigationBarView = findViewById(R.id.bottom_navigation)
         bar.setOnItemSelectedListener { item ->
             when (item.itemId) {

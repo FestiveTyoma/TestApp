@@ -26,7 +26,7 @@ class WebFragment : Fragment(), IOnBackPressed {
            return mInstance
        }
    }
-    
+
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
